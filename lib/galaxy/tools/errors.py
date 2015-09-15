@@ -123,10 +123,14 @@ class EmailErrorReporter( ErrorReporter ):
         to_address = self.app.config.error_email_to
         assert to_address, ValueError( "Error reporting has been disabled for this galaxy instance" )
 
-        frm = to_address
+        #frm = to_address
         # Check email a bit
         email = email or ''
         email = email.strip()
+        if email is not '':
+            frm = email
+        else:
+            frm = to_address
         parts = email.split()
         if len( parts ) == 1 and len( email ) > 0 and self._can_access_dataset( user ):
             to = to_address + ", " + email
